@@ -3,6 +3,8 @@
  */
 // 加载express模块
 const express = require('express');
+const mongoose = require('mongoose');
+
 //创建app应用
 const app = express();
 const Blog = require('./config/blog');
@@ -16,8 +18,15 @@ app.use('/api/console', require('./routers/console'));
 // 移动或者前端路由
 app.use('/api/views', require('./routers/views'))
 
-// 监听http请求
-const port = Blog.website.port;
-app.listen(port, function () {
-  console.log('server start at ' + port);
+// 监听http请求 /Users/jesse/Workspaces/MyBlog/myblog/server/db
+mongoose.connect(Blog.db.url, {
+  useMongoClient: true
+}, function (err) {
+  if (err) {
+    console.log('数据库连接失败');
+  } else {
+    app.listen(Blog.website.port, function () {
+      console.log('server start at ' + Blog.website.port);
+    });
+  }
 });
