@@ -1,37 +1,60 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import App from './App'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import VueRouter from 'vue-router'
+import Vuex from 'vuex'
+import routers from './router/index'
+import 'font-awesome/css/font-awesome.min.css'
+import store from './vuex/store'
+// import common from './components/common/components/'
 
-// 完整引入 element-ui 和 样式
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-default/index.css';
+Vue.use(ElementUI)
+Vue.use(VueRouter)
+Vue.use(Vuex)
 
-// 第三方丰富的图标
-import 'font-awesome/css/font-awesome.min.css';
+Vue.config.errorHandler = function(err, vm) {
+  console.log(err)
+  console.log(vm)
+}
 
-// 国际化语言
-// import locale from 'element-ui/lib/locale/lang/en';
+const router = new VueRouter({
+  hashbang: true,
+  history: true,
+  routers
+})
 
-import App from './App';
-import router from './router';
-import Dict from './dict';
+router.afterEach(() => {
+})
 
-Vue.use(ElementUI, {
-  // locale
-});
-Vue.use(Vuex);
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('token')
+  }
+  if (to.matched.some(record => record.meta.requireAuth)) {
+    const user = JSON.parse(sessionStorage.getItem('user'))
+    const token = JSON.parse(sessionStorage.getItem('token'))
+    if (token && user && to.path) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    }
+  } else {
+    next()
+  }
+})
 
-Vue.config.productionTip = false;
-
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  // el: '#app',
+  // template: '<App/>',
   router,
-  template: '<App/>',
-  components: {
-    App,
-  },
-});
-
-Vue.prototype.Dict = Dict;
+  store,
+  // components: {App},
+  render: h => h(App)
+}).$mount('#app')
