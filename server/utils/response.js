@@ -12,5 +12,5 @@ const resultRes = {
       data: obj
     }
   },
-}
+};
 module.exports = resultRes;
