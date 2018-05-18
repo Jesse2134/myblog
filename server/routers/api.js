@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const md5 = crypto.createHash('md5');
 const resultRes = require('./../utils/response');
 const User = require('./../models/User');
+
 /**
  * register 用户注册
  */
@@ -35,6 +36,7 @@ router.post('/user/register', function (req, res, next) {
     });
   })
 });
+
 
 /**
  * login 用户登录

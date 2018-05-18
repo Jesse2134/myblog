@@ -3,6 +3,7 @@
 import Vue from 'vue';
 // 完整引入 element-ui 和 样式
 import ElementUI from 'element-ui';
+import VeeValidate from 'vee-validate';
 import 'element-ui/lib/theme-default/index.css';
 // 第三方丰富的图标
 import 'font-awesome/css/font-awesome.min.css';
@@ -13,7 +14,7 @@ import router from './router';
 import Dict from './dict';
 
 Vue.use(ElementUI);
-
+Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

@@ -19,8 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // 分模块路由
 // 移动或者前端路由
 app.use('/api', require('./routers/api'))
-// 监听http请求 /Users/jesse/Workspaces/MyBlog/myblog/server/db
 
+// 监听http请求 /Users/jesse/Workspaces/MyBlog/myblog/server/db
 mongoose.Promise = bluebird;
 mongoose.connect(Blog.db.url, {
   useMongoClient: true
