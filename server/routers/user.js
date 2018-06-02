@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const md5 = require('./../utils/md5');
-const resultRes = require('./../utils/response');
-const User = require('./../models/User');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const Blog = require('../config/blog');
-
 require('./../utils/passport')(passport);
+
+const resultRes = require('./../utils/response');
+const Blog = require('../config/blog');
+const User = require('./../models/User');
 
 /**
  * register 用户注册
  */
-router.post('/user/register', function (req, res, next) {
+router.post('/register', function (req, res, next) {
     const {
         username,
         password,
@@ -50,7 +50,7 @@ router.post('/user/register', function (req, res, next) {
 /**
  * login 用户登录
  */
-router.post('/user/login', function (req, res, next) {
+router.post('/login', function (req, res, next) {
     let {
         username,
         password
@@ -98,7 +98,7 @@ router.post('/user/login', function (req, res, next) {
  cnname: String, // 中文名
  usname: String, // 英文名
  */
-router.put('/user/info', function (req, res, next) {
+router.put('/info', function (req, res, next) {
     const {username, nickname, mobile, email, cnname, usname} = req.body;
     // 检查用户名是否已经注册
     User.findOne({
@@ -131,7 +131,7 @@ router.put('/user/info', function (req, res, next) {
     })
 });
 
-router.get('/user/info', passport.authenticate('bearer', {session: false}), function (req, res) {
+router.get('/info', passport.authenticate('bearer', {session: false}), function (req, res) {
     console.log(req);
     res.json({username: req.user.username});
 });

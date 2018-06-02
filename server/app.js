@@ -33,7 +33,9 @@ app.use(passport.initialize());// 初始化passport模块
 
 // 分模块路由
 // 移动或者前端路由
-app.use('/api', require('./routers/api'));
+app.use('/api/user', require('./routers/user'));
+app.use('/api/resume', require('./routers/resume'));
+
 
 // 监听http请求 /Users/jesse/Workspaces/MyBlog/myblog/server/db
 mongoose.Promise = bluebird;

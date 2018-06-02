@@ -6,9 +6,13 @@ const Blog = {
         secret: 'jesse_2134',
         Bearer: "Bearer "
     },
+    // db: {
+    //     local: '/Users/jesse/Workspaces/MyBlog/myblog/server/db',
+    //     url: 'mongodb://localhost:27018/blog'
+    // },
     db: {
-        local: '/Users/jesse/Workspaces/MyBlog/myblog/server/db',
+        local: 'E:\My\myblog\server\db',
         url: 'mongodb://localhost:27018/blog'
-    }
+    },
 };
 module.exports = Blog;
